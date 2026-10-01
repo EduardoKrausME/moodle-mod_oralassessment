@@ -22,6 +22,8 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace mod_oralassessment;
 final class permissions_test extends \advanced_testcase {
     /**
      * Default role archetypes receive only the expected activity capabilities.
