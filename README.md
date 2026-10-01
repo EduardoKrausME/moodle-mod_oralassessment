@@ -1,31 +1,8 @@
 # Moodle mod_oralassessment
 
-`mod_oralassessment` is a formative oral-assessment activity for Moodle 4.5+. A learner answers a sequence of spoken or typed questions, while AI can adapt the next question and organise transcript evidence for a teacher to review.
+`mod_oralassessment` is a formative oral-assessment activity for Moodle. A learner answers a sequence of spoken or typed questions, while AI can adapt the next question and organise transcript evidence for a teacher to review.
 
 The activity is intentionally designed around a human-review boundary: AI may ask questions, summarise transcript evidence and point out items that deserve attention, but it never calculates, recommends or applies the final grade. A grade reaches the Moodle gradebook only when a user with `mod/oralassessment:reviewattempts` explicitly saves the human review form.
-
-## Required dependency
-
-This plugin requires:
-
-```php
-$plugin->dependencies = [
-    'local_ai_bridge' => 2026093001,
-];
-```
-
-Repository: `https://github.com/EduardoKrausME/moodle-local_ai_bridge/`
-
-All textual AI generation goes exclusively through:
-
-```php
-\local_ai_bridge\api::generate(
-    'oralassessment-dialogue',
-    $messages
-);
-```
-
-Configure the `oralassessment-dialogue` purpose and an allowed route for the relevant tenant/role in `local_ai_bridge` before using AI-generated questions.
 
 ## No parallel audio provider
 
@@ -74,13 +51,13 @@ The response parser accepts only the expected JSON structure and limits the size
 
 ## Safety and assessment limits
 
-The plugin instructs AI not to infer or diagnose intelligence, personality, emotion, medical conditions, identity, or biometric traits from a response. Audio is not sent through `local_ai_bridge` in this version; only text is used for AI dialogue.
+The plugin instructs AI not to infer or diagnose intelligence, personality, emotion, medical conditions, identity, or biometric traits from a response. Audio is not sent through `local_ai_bridge` in the plugin; only text is used for AI dialogue.
 
 This is a formative evidence tool, not an autonomous examiner. Generated summaries and evidence are visibly marked as advisory. Teacher feedback and any grade are human actions.
 
 ## Attempts and review
 
-The initial version supports one attempt per learner per activity. A learner can resume an in-progress attempt. Each question and learner transcript is stored as a turn, which keeps the assessment auditable without asking AI to reconstruct what happened.
+The the plugin supports one attempt per learner per activity. A learner can resume an in-progress attempt. Each question and learner transcript is stored as a turn, which keeps the assessment auditable without asking AI to reconstruct what happened.
 
 If AI generation fails after a learner submits a response, the transcript is saved first. On the last round the attempt can still be submitted for human review even when the AI service is unavailable.
 
@@ -107,47 +84,3 @@ Privacy deletion removes learner turns and associated audio files. When a user a
 - `mod/oralassessment:addinstance`
 - `mod/oralassessment:view`
 - `mod/oralassessment:reviewattempts`
-
-## Installation
-
-Place the plugin in:
-
-```text
-mod/oralassessment
-```
-
-Install/upgrade Moodle normally. The required `local_ai_bridge` version must also be installed. Then configure the `oralassessment-dialogue` purpose in AI Bridge for the tenants and logical roles that should use the activity.
-
-## Tests
-
-The PHPUnit suite covers:
-
-- attempt lifecycle and turn persistence;
-- Privacy API and audio deletion;
-- capabilities;
-- transcript validation and fallback handling;
-- AI failure after learner submission;
-- custom activity completion;
-- explicit teacher review and gradebook update.
-
-Run from a Moodle checkout with PHPUnit configured:
-
-```bash
-vendor/bin/phpunit --testsuite mod_oralassessment_testsuite
-```
-
-or with Moodle Plugin CI:
-
-```bash
-moodle-plugin-ci add-plugin --branch master EduardoKrausME/moodle-local_ai_bridge
-moodle-plugin-ci install --plugin /path/to/moodle-mod_oralassessment
-moodle-plugin-ci phpunit
-```
-
-## CI
-
-`.github/workflows/ci.yml` tests Moodle 4.5 and a newer supported branch against PostgreSQL and MariaDB, installs `local_ai_bridge` as a dependency, runs PHP lint, Moodle Plugin Validate, Moodle Code Checker, Moodle validation/savepoint checks, Mustache lint and PHPUnit.
-
-## License
-
-GNU GPL v3 or later.
