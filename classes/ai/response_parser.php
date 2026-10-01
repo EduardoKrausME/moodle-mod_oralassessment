@@ -39,7 +39,7 @@ class response_parser {
      */
     public static function parse(string $text, bool $questionrequired): array {
         $text = trim($text);
-        if (preg_match('/^```(?:json)?\s*(.*?)\s*```$/s', $text, $matches)) {
+        if (preg_match('/^\x60{3}(?:json)?\s*(.*?)\s*\x60{3}$/s', $text, $matches)) {
             $text = trim($matches[1]);
         }
         $data = json_decode($text, true);
