@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Human review of one oral assessment attempt.
@@ -60,7 +60,7 @@ $form->set_data((object)[
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/mod/oralassessment/review.php', ['id' => $cm->id]));
-} elseif ($data = $form->get_data()) {
+} else if ($data = $form->get_data()) {
     $rawgrade = $data->grade ?? '';
     $grade = ($rawgrade === '' || $rawgrade === null) ? null : (float)$rawgrade;
     $feedback = $data->feedback_editor['text'] ?? '';
