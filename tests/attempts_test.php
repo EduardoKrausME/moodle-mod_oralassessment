@@ -22,6 +22,10 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace mod_oralassessment;
+
+use mod_oralassessment\ai\dialogue_service;
 final class attempts_test extends \advanced_testcase {
     /**
      * A learner can start, answer and submit without losing the transcript.
