@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Text-only AI orchestration through local_ai_bridge.
@@ -75,7 +75,7 @@ class dialogue_service {
         if ($final) {
             $payload['task'] = 'Produce the final formative summary, evidence and review points. ' .
                 'Do not generate another question.';
-        } elseif ($adaptivefollowup) {
+        } else if ($adaptivefollowup) {
             $payload['task'] = 'Produce cumulative evidence and a next question that follows from the learner response ' .
                 'when useful.';
         } else {
