@@ -22,6 +22,10 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace mod_oralassessment;
+
+use mod_oralassessment\completion\custom_completion;
 final class completion_test extends \advanced_testcase {
     /**
      * Attempt submission and teacher review independently satisfy their completion rules.
