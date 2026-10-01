@@ -5,6 +5,14 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Restore structure for mod_oralassessment.
@@ -13,8 +21,6 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Activity structure restore step.
@@ -79,7 +85,9 @@ class restore_oralassessment_activity_structure_step extends restore_activity_st
         $this->set_mapping('oralassessment_turn', $oldid, $newitemid, true);
     }
 
-    /** Restore files after records exist. */
+    /**
+     * Restore related files after all records and mappings exist.
+     */
     protected function after_execute() {
         $this->add_related_files('mod_oralassessment', 'intro', null);
         $this->add_related_files('mod_oralassessment', 'attemptaudio', 'oralassessment_turn');
