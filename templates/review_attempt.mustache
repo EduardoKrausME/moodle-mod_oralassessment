@@ -1,0 +1,25 @@
+<div class="mod-oralassessment-review">
+    <div class="alert alert-warning">{{aigeneratednotice}}</div>
+    {{#hasaierror}}<div class="alert alert-warning">{{aierror}}</div>{{/hasaierror}}
+
+    <h3 class="h5">{{#str}}questionsandresponses, mod_oralassessment{{/str}}</h3>
+    {{#turns}}
+        {{#isquestion}}<div class="oralassessment-turn oralassessment-question mb-2"><strong>Q{{turnnumber}}.</strong> {{text}}</div>{{/isquestion}}
+        {{#isresponse}}
+            <div class="oralassessment-turn oralassessment-response mb-3">
+                <strong>A{{turnnumber}}.</strong> {{text}}
+                {{#audio}}<div class="mt-2"><audio controls preload="none" src="{{audio}}"></audio></div>{{/audio}}
+            </div>
+        {{/isresponse}}
+    {{/turns}}
+
+    {{#hassummary}}<h3 class="h5">{{#str}}summary, mod_oralassessment{{/str}}</h3><p>{{summary}}</p>{{/hassummary}}
+    {{#hasevidence}}
+        <h3 class="h5">{{#str}}evidence, mod_oralassessment{{/str}}</h3>
+        <ul>{{#evidence}}<li><strong>{{criterion}}</strong>: {{evidence}}</li>{{/evidence}}</ul>
+    {{/hasevidence}}
+    {{#hasreviewpoints}}
+        <h3 class="h5">{{#str}}reviewpoints, mod_oralassessment{{/str}}</h3>
+        <ul>{{#reviewpoints}}<li>{{text}}</li>{{/reviewpoints}}</ul>
+    {{/hasreviewpoints}}
+</div>

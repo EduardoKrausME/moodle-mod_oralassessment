@@ -1,0 +1,252 @@
+define([], function() {
+    'use strict';
+
+    const postForm = async (url, data) => {
+        const body = new URLSearchParams();
+        Object.keys(data).forEach((key) => body.append(key, data[key]));
+        const response = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+            body: body.toString()
+        });
+        return response.json();
+    };
+
+    const formatTime = (seconds) => {
+        seconds = Math.max(0, Math.floor(seconds));
+        const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        return minutes + ':' + secs;
+    };
+
+    const init = (config) => {
+        const app = document.getElementById('oralassessment-app');
+        if (!app) {
+            return;
+        }
+        const startButton = document.getElementById('oralassessment-start');
+        const session = document.getElementById('oralassessment-session');
+        const question = document.getElementById('oralassessment-question');
+        const transcript = document.getElementById('oralassessment-transcript');
+        const submitButton = document.getElementById('oralassessment-submit');
+        const recordButton = document.getElementById('oralassessment-record');
+        const stopButton = document.getElementById('oralassessment-stop');
+        const timer = document.getElementById('oralassessment-timer');
+        const errorBox = document.getElementById('oralassessment-error');
+        const audioConsent = document.getElementById('oralassessment-audio-consent');
+
+        let attemptId = Number(config.attemptid || 0);
+        let started = Number(config.started || 0);
+        let mediaRecorder = null;
+        let mediaStream = null;
+        let chunks = [];
+        let audioBlob = null;
+        let recognition = null;
+        let usedBrowserRecognition = false;
+
+        const showError = (message) => {
+            if (!errorBox) {
+                return;
+            }
+            errorBox.textContent = message || config.strings.aierror;
+            errorBox.classList.remove('d-none');
+        };
+
+        const hideError = () => {
+            if (errorBox) {
+                errorBox.classList.add('d-none');
+                errorBox.textContent = '';
+            }
+        };
+
+        const updateTimer = () => {
+            if (!timer || !started || !config.duration) {
+                return;
+            }
+            const elapsed = Math.floor(Date.now() / 1000) - started;
+            timer.textContent = formatTime(Number(config.duration) - elapsed);
+        };
+        updateTimer();
+        window.setInterval(updateTimer, 1000);
+
+        const stopRecording = () => {
+            if (recognition) {
+                try { recognition.stop(); } catch (e) { /* Already stopped. */ }
+                recognition = null;
+            }
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            if (mediaStream) {
+                mediaStream.getTracks().forEach((track) => track.stop());
+                mediaStream = null;
+            }
+            if (recordButton) {
+                recordButton.classList.remove('d-none');
+            }
+            if (stopButton) {
+                stopButton.classList.add('d-none');
+            }
+        };
+
+        const startRecognition = () => {
+            if (config.transcriptionmode !== 'browser') {
+                return;
+            }
+            const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!Recognition) {
+                return;
+            }
+            recognition = new Recognition();
+            recognition.lang = document.documentElement.lang || 'pt-BR';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            let finalText = transcript.value.trim();
+            recognition.onresult = (event) => {
+                let interim = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        finalText += (finalText ? ' ' : '') + event.results[i][0].transcript.trim();
+                    } else {
+                        interim += event.results[i][0].transcript;
+                    }
+                }
+                transcript.value = (finalText + (interim ? ' ' + interim : '')).trim();
+                usedBrowserRecognition = true;
+            };
+            try { recognition.start(); } catch (e) { recognition = null; }
+        };
+
+        const startRecording = async () => {
+            hideError();
+            if (config.storeaudio && audioConsent && !audioConsent.checked) {
+                showError(config.strings.consentrequired);
+                return;
+            }
+            chunks = [];
+            audioBlob = null;
+            startRecognition();
+            if (config.storeaudio && navigator.mediaDevices && window.MediaRecorder) {
+                try {
+                    mediaStream = await navigator.mediaDevices.getUserMedia({audio: true, video: false});
+                    mediaRecorder = new MediaRecorder(mediaStream);
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data && event.data.size) {
+                            chunks.push(event.data);
+                        }
+                    };
+                    mediaRecorder.onstop = () => {
+                        if (chunks.length) {
+                            audioBlob = new Blob(chunks, {type: mediaRecorder.mimeType || 'audio/webm'});
+                        }
+                    };
+                    mediaRecorder.start();
+                } catch (e) {
+                    showError(e.message);
+                }
+            }
+            if (recordButton) {
+                recordButton.classList.add('d-none');
+            }
+            if (stopButton) {
+                stopButton.classList.remove('d-none');
+            }
+        };
+
+        const uploadAudio = async (turnId) => {
+            if (!audioBlob || !config.storeaudio) {
+                return;
+            }
+            const form = new FormData();
+            form.append('sesskey', config.sesskey);
+            form.append('attemptid', attemptId);
+            form.append('turnid', turnId);
+            form.append('consent', '1');
+            const extension = audioBlob.type.indexOf('ogg') !== -1 ? 'ogg' :
+                (audioBlob.type.indexOf('mp4') !== -1 ? 'm4a' : 'webm');
+            form.append('audio', audioBlob, 'response.' + extension);
+            const response = await fetch(config.uploadurl, {method: 'POST', credentials: 'same-origin', body: form});
+            const result = await response.json();
+            if (!result.success) {
+                showError(result.message);
+            }
+            audioBlob = null;
+        };
+
+        if (startButton) {
+            startButton.addEventListener('click', async () => {
+                hideError();
+                startButton.disabled = true;
+                try {
+                    const result = await postForm(config.starturl, {cmid: config.cmid, sesskey: config.sesskey});
+                    if (!result.success) {
+                        showError(result.message);
+                        return;
+                    }
+                    attemptId = Number(result.attemptid);
+                    started = Number(result.started);
+                    question.textContent = result.question || '';
+                    session.classList.remove('d-none');
+                    startButton.classList.add('d-none');
+                    updateTimer();
+                } catch (e) {
+                    showError(e.message);
+                } finally {
+                    startButton.disabled = false;
+                }
+            });
+        }
+
+        if (recordButton) {
+            recordButton.addEventListener('click', startRecording);
+        }
+        if (stopButton) {
+            stopButton.addEventListener('click', stopRecording);
+        }
+
+        if (submitButton) {
+            submitButton.addEventListener('click', async () => {
+                hideError();
+                stopRecording();
+                const text = transcript.value.trim();
+                if (!text) {
+                    showError(config.emptytranscript);
+                    return;
+                }
+                submitButton.disabled = true;
+                try {
+                    // Give MediaRecorder.onstop a short event loop turn to create the Blob.
+                    await new Promise((resolve) => window.setTimeout(resolve, 100));
+                    const result = await postForm(config.submiturl, {
+                        attemptid: attemptId,
+                        transcript: text,
+                        method: usedBrowserRecognition ? 'browser' : 'manual',
+                        sesskey: config.sesskey
+                    });
+                    if (!result.success) {
+                        showError(result.message);
+                        return;
+                    }
+                    await uploadAudio(result.userturnid);
+                    transcript.value = '';
+                    usedBrowserRecognition = false;
+                    if (result.aierror) {
+                        showError(result.aierror);
+                    }
+                    if (result.finished) {
+                        window.location.reload();
+                        return;
+                    }
+                    question.textContent = result.question || '';
+                } catch (e) {
+                    showError(e.message);
+                } finally {
+                    submitButton.disabled = false;
+                }
+            });
+        }
+    };
+
+    return {init: init};
+});

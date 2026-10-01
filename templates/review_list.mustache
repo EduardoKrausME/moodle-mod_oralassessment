@@ -1,0 +1,23 @@
+{{#hasattempts}}
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+    <thead><tr>
+        <th>{{#str}}student, mod_oralassessment{{/str}}</th>
+        <th>{{#str}}status, mod_oralassessment{{/str}}</th>
+        <th>{{#str}}started, mod_oralassessment{{/str}}</th>
+        <th>{{#str}}submitted, mod_oralassessment{{/str}}</th>
+        <th>{{#str}}grade, mod_oralassessment{{/str}}</th>
+        <th></th>
+    </tr></thead>
+    <tbody>
+    {{#attempts}}
+        <tr>
+            <td>{{student}}</td><td>{{status}}</td><td>{{started}}</td><td>{{submitted}}</td><td>{{grade}}</td>
+            <td><a class="btn btn-sm btn-outline-primary" href="{{url}}">{{#str}}reviewattempt, mod_oralassessment{{/str}}</a></td>
+        </tr>
+    {{/attempts}}
+    </tbody>
+</table>
+</div>
+{{/hasattempts}}
+{{^hasattempts}}<div class="alert alert-info">{{#str}}noattempts, mod_oralassessment{{/str}}</div>{{/hasattempts}}

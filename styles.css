@@ -1,0 +1,13 @@
+.mod-oralassessment .oralassessment-question {
+    border-left: .25rem solid var(--bs-primary, #0d6efd);
+    padding-left: 1rem;
+}
+.mod-oralassessment .oralassessment-response,
+.mod-oralassessment-review .oralassessment-response {
+    border-left: .25rem solid var(--bs-secondary, #6c757d);
+    padding-left: 1rem;
+}
+.mod-oralassessment audio,
+.mod-oralassessment-review audio {
+    max-width: 100%;
+}
