@@ -22,6 +22,10 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace mod_oralassessment;
+
+use mod_oralassessment\ai\dialogue_service;
 final class ai_failure_test extends \advanced_testcase {
     /**
      * AI failures retain the learner transcript and submit the attempt for review.
