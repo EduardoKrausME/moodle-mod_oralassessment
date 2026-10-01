@@ -26,6 +26,8 @@ namespace mod_oralassessment\form;
 
 use moodleform;
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once($GLOBALS['CFG']->libdir . '/formslib.php');
 
 /**
