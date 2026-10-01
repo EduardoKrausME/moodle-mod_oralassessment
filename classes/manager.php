@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Activity and attempt manager.
@@ -253,7 +253,7 @@ class manager {
         $nextquestion = null;
         if (empty($activity->allowfollowup) && isset($questions[$turnnumber])) {
             $nextquestion = $questions[$turnnumber];
-        } elseif ($result && !empty($result['next_question'])) {
+        } else if ($result && !empty($result['next_question'])) {
             $nextquestion = $result['next_question'];
         }
 
@@ -376,7 +376,7 @@ class manager {
         foreach ($records as $turn) {
             if ($turn->role === 'assistant' && $turn->question !== null) {
                 $history[] = ['role' => 'assistant', 'content' => (string)$turn->question];
-            } elseif ($turn->role === 'user' && $turn->transcript !== null) {
+            } else if ($turn->role === 'user' && $turn->transcript !== null) {
                 $history[] = ['role' => 'user', 'content' => (string)$turn->transcript];
             }
         }
