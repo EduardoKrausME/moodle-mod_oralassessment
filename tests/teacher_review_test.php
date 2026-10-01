@@ -5,12 +5,21 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace mod_oralassessment;
 
 /**
  * Teacher review and gradebook tests.
  *
+ * @coversNothing
  * @package mod_oralassessment
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -68,7 +77,7 @@ final class teacher_review_test extends \advanced_testcase {
 
         $attempt = $DB->get_record('oralassessment_attempts', ['id' => $attemptid], '*', MUST_EXIST);
         $this->assertSame(manager::STATUS_REVIEWED, $attempt->status);
-        $this->assertSame($teacher->id, (int)$attempt->reviewedby);
+        $this->assertSame((int)$teacher->id, (int)$attempt->reviewedby);
         $this->assertEquals(82.5, (float)$attempt->grade);
 
         $grade = $DB->get_record('grade_grades', [
