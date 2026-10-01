@@ -100,10 +100,8 @@ class provider implements
                     ON cm.id = ctx.instanceid AND ctx.contextlevel = :contextlevel
                   JOIN {modules} m
                     ON m.id = cm.module AND m.name = :modname
-                  JOIN {oralassessment} oa
-                    ON oa.id = cm.instance
                   JOIN {oralassessment_attempts} a
-                    ON a.oralassessmentid = oa.id
+                    ON a.oralassessmentid = cm.instance
                  WHERE a.userid = :learnerid OR a.reviewedby = :reviewerid";
         $contextlist->add_from_sql($sql, [
             'contextlevel' => CONTEXT_MODULE,
