@@ -57,7 +57,7 @@ This is a formative evidence tool, not an autonomous examiner. Generated summari
 
 ## Attempts and review
 
-The the plugin supports one attempt per learner per activity. A learner can resume an in-progress attempt. Each question and learner transcript is stored as a turn, which keeps the assessment auditable without asking AI to reconstruct what happened.
+The plugin allows one attempt per learner per activity. A learner can resume an in-progress attempt. Each question and learner transcript is stored as a turn, which keeps the assessment auditable without asking AI to reconstruct what happened.
 
 If AI generation fails after a learner submits a response, the transcript is saved first. On the last round the attempt can still be submitted for human review even when the AI service is unavailable.
 
