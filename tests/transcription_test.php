@@ -22,6 +22,10 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace mod_oralassessment;
+
+use mod_oralassessment\transcription\transcription_service;
 final class transcription_test extends \advanced_testcase {
     /**
      * Supported transcript origins are normalised to safe internal values.
