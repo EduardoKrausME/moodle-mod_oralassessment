@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Privacy provider for mod_oralassessment.
@@ -131,10 +131,13 @@ class provider implements
         $userlist->add_from_sql('userid',
             'SELECT userid FROM {oralassessment_attempts} WHERE oralassessmentid = :activityid',
             ['activityid' => $cm->instance]);
-        $userlist->add_from_sql('reviewedby',
-            'SELECT reviewedby FROM {oralassessment_attempts}
+        $userlist->add_from_sql(
+            'userid',
+            'SELECT reviewedby AS userid
+               FROM {oralassessment_attempts}
               WHERE oralassessmentid = :activityid AND reviewedby <> 0',
-            ['activityid' => $cm->instance]);
+            ['activityid' => $cm->instance]
+        );
     }
 
     /**
