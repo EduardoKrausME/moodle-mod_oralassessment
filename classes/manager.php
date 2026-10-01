@@ -35,8 +35,13 @@ use stdClass;
  * Central domain service for the activity.
  */
 class manager {
+    /** @var string */
     public const STATUS_INPROGRESS = 'inprogress';
+
+    /** @var string */
     public const STATUS_SUBMITTED = 'submitted';
+
+    /** @var string */
     public const STATUS_REVIEWED = 'reviewed';
 
     /**

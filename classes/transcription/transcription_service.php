@@ -30,8 +30,13 @@ use moodle_exception;
  * Server-side boundary for transcript handling.
  */
 class transcription_service {
+    /** @var string */
     public const METHOD_BROWSER = 'browser';
+
+    /** @var string */
     public const METHOD_MANUAL = 'manual';
+
+    /** @var int */
     public const MAX_CHARS = 20000;
 
     /**
