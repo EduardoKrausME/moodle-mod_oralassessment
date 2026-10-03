@@ -77,7 +77,7 @@ jobs:
 
       - name: Validate Moodle plugin
         if: ${{ !cancelled() }}
-        uses: EduardoKrausME/moodle-plugin-validate@main
+        uses: EduardoKrausME/moodle-plugin-validate@master
         with:
           plugin: ./plugin
 
