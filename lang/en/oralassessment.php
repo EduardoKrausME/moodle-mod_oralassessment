@@ -34,9 +34,7 @@ $string['audio'] = 'Audio';
 $string['audiostored'] = 'Audio stored.';
 $string['audiouploadfailed'] = 'The audio could not be stored.';
 $string['awaitingreview'] = 'This formative attempt is awaiting teacher review.';
-$string['browserprivacy'] = 'Browser speech recognition can be implemented by the browser or operating system and may use ' .
-    'its own speech service. Moodle receives the resulting transcript; you can use the typed ' .
-    'fallback instead.';
+$string['browserprivacy'] = 'Browser speech recognition can be implemented by the browser or operating system and may use its own speech service. Moodle receives the resulting transcript; you can use the typed fallback instead.';
 $string['completionattempt'] = 'Student must submit the oral assessment';
 $string['completiondetail:attempt'] = 'Submit an oral assessment attempt';
 $string['completiondetail:reviewed'] = 'Have the oral assessment reviewed by a teacher';
@@ -73,8 +71,7 @@ $string['oralassessment:view'] = 'View oral assessment';
 $string['oralassessmentname'] = 'Name';
 $string['pluginadministration'] = 'Oral assessment administration';
 $string['pluginname'] = 'Oral assessment';
-$string['privacy:metadata:aibridge'] = 'Text from this activity is sent through local_ai_bridge under purpose ' .
-    'oralassessment-dialogue. This plugin does not call an external AI provider directly.';
+$string['privacy:metadata:aibridge'] = 'Text from this activity is sent through local_ai_bridge under purpose oralassessment-dialogue. This plugin does not call an external AI provider directly.';
 $string['privacy:metadata:aibridge:conversation'] = 'Questions and learner response transcripts needed for the dialogue.';
 $string['privacy:metadata:aibridge:criteria'] = 'Teacher-provided assessment criteria.';
 $string['privacy:metadata:aibridge:objectives'] = 'Teacher-provided learning objectives that constrain the dialogue.';
@@ -102,17 +99,14 @@ $string['privacy:metadata:turns:role'] = 'Whether the turn is an assistant quest
 $string['privacy:metadata:turns:timecreated'] = 'When the conversation turn was created.';
 $string['privacy:metadata:turns:transcript'] = 'Transcript or typed response submitted by the learner.';
 $string['privacy:metadata:turns:transcriptionmethod'] = 'How the transcript was produced.';
-$string['privacywarning'] = 'This activity can process a spoken response. Depending on the activity settings, Moodle ' .
-    'stores either the transcript only or the transcript plus the recorded audio.';
+$string['privacywarning'] = 'This activity can process a spoken response. Depending on the activity settings, Moodle stores either the transcript only or the transcript plus the recorded audio.';
 $string['purpose'] = 'AI purpose: oralassessment-dialogue';
 $string['questionsandresponses'] = 'Questions and responses';
 $string['record'] = 'Record';
 $string['recordingconsent'] = 'I understand that if I record audio, the recording will be stored in Moodle with this attempt.';
-$string['recordingnotice'] = 'Audio recording is enabled for this activity. Recording starts only after you press the ' .
-    'record button and your browser grants microphone access.';
+$string['recordingnotice'] = 'Audio recording is enabled for this activity. Recording starts only after you press the record button and your browser grants microphone access.';
 $string['requirereview'] = 'Require teacher review';
-$string['requirereview_help'] = 'When enabled, a submitted attempt is shown as awaiting human review. Moodle activity ' .
-    'completion remains controlled separately by the completion rules.';
+$string['requirereview_help'] = 'When enabled, a submitted attempt is shown as awaiting human review. Moodle activity completion remains controlled separately by the completion rules.';
 $string['reviewattempt'] = 'Review attempt';
 $string['reviewattempts'] = 'Review attempts';
 $string['reviewed'] = 'Reviewed';
@@ -129,8 +123,7 @@ $string['started'] = 'Started';
 $string['status'] = 'Status';
 $string['stoprecording'] = 'Stop recording';
 $string['storeaudio'] = 'Store audio recordings';
-$string['storeaudio_help'] = 'When enabled, audio captured in the browser may be stored in Moodle. The AI bridge receives ' .
-    'text only in this version.';
+$string['storeaudio_help'] = 'When enabled, audio captured in the browser may be stored in Moodle. The AI bridge receives text only in this version.';
 $string['student'] = 'Student';
 $string['submitresponse'] = 'Submit response';
 $string['submitted'] = 'Submitted';
@@ -141,6 +134,5 @@ $string['transcript'] = 'Transcript / typed response';
 $string['transcriptionbrowser'] = 'Browser speech recognition when available, with typed fallback';
 $string['transcriptionmanual'] = 'Typed transcript only';
 $string['transcriptionmode'] = 'Transcription mode';
-$string['transcriptonlynotice'] = 'Audio is not stored. Browser speech recognition may be used when available, and you can ' .
-    'always type or edit the transcript before submitting it.';
+$string['transcriptonlynotice'] = 'Audio is not stored. Browser speech recognition may be used when available, and you can always type or edit the transcript before submitting it.';
 $string['transcripttoolong'] = 'The transcript is too long.';
