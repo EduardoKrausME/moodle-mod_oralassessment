@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
 $string['aifailed'] = 'The AI service was unavailable. Your transcript was saved and remains available for teacher review.';
 $string['aigeneratednotice'] = 'AI-generated evidence is advisory and must be interpreted by a human reviewer.';
