@@ -82,15 +82,15 @@ final class privacy_test extends \advanced_testcase {
         ], 'fake audio bytes');
 
         $contexts = provider::get_contexts_for_userid($learner->id);
-        $this->assertContains($context->id, $contexts->get_contextids());
+        $this->assertContainsEquals($context->id, $contexts->get_contextids());
         $reviewcontexts = provider::get_contexts_for_userid($reviewer->id);
-        $this->assertContains($context->id, $reviewcontexts->get_contextids());
+        $this->assertContainsEquals($context->id, $reviewcontexts->get_contextids());
 
         $userlist = new userlist($context, 'mod_oralassessment');
         provider::get_users_in_context($userlist);
         $userids = $userlist->get_userids();
-        $this->assertContains($learner->id, $userids);
-        $this->assertContains($reviewer->id, $userids);
+        $this->assertContainsEquals($learner->id, $userids);
+        $this->assertContainsEquals($reviewer->id, $userids);
 
         $approved = new approved_contextlist($learner, 'mod_oralassessment', [$context->id]);
         provider::delete_data_for_user($approved);
