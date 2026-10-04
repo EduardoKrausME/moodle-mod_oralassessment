@@ -21,10 +21,6 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-/**
- * Oral assessment test generator.
- */
 class mod_oralassessment_generator extends testing_module_generator {
     /**
      * Create an activity instance with useful defaults.

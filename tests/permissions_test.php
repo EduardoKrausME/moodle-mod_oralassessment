@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+namespace mod_oralassessment;
+
 /**
  * Capability tests.
  *
@@ -22,8 +24,6 @@
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace mod_oralassessment;
 final class permissions_test extends \advanced_testcase {
     /**
      * Default role archetypes receive only the expected activity capabilities.
