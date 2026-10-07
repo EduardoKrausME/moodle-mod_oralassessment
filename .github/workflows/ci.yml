@@ -47,12 +47,12 @@ jobs:
         with:
           path: plugin
 
-    - name: Check out AI Bridge
-      uses: actions/checkout@v4
-      with:
-        repository: EduardoKrausME/moodle-local_ai_bridge
-        ref: master
-        path: extra-plugins/ai_bridge
+      - name: Check out AI Bridge
+        uses: actions/checkout@v4
+        with:
+          repository: EduardoKrausME/moodle-local_ai_bridge
+          ref: master
+          path: extra-plugins/ai_bridge
 
       - name: Setup PHP ${{ matrix.config.php }}
         uses: shivammathur/setup-php@v2
@@ -69,8 +69,6 @@ jobs:
           sudo locale-gen en_AU.UTF-8
           echo "NVM_DIR=$HOME/.nvm" >> "$GITHUB_ENV"
 
-      - name: Queue AI Bridge dependency
-        run: moodle-plugin-ci add-plugin --branch master EduardoKrausME/moodle-local_ai_bridge
 
       - name: Install Moodle test site
         run: moodle-plugin-ci install --plugin ./plugin --extra-plugins ./extra-plugins --db-host=127.0.0.1
