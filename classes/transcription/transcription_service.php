@@ -52,7 +52,7 @@ class transcription_service {
         if ($transcript === '') {
             throw new moodle_exception('emptytranscript', 'mod_oralassessment');
         }
-        if (\core_text::strlen($transcript) > self::MAX_CHARS) {
+        if (strlen($transcript) > self::MAX_CHARS) {
             throw new moodle_exception('transcripttoolong', 'mod_oralassessment');
         }
         return $transcript;
