@@ -65,8 +65,8 @@ If AI generation fails after a learner submits a response, the transcript is sav
 
 The activity can run in either of these modes:
 
-1. **Transcript only** — Moodle stores submitted text and no activity audio file.
-2. **Store audio** — after explicit browser microphone permission and a learner action to record, Moodle stores the audio with the corresponding learner turn.
+1. **Transcript only** - Moodle stores submitted text and no activity audio file.
+2. **Store audio** - after explicit browser microphone permission and a learner action to record, Moodle stores the audio with the corresponding learner turn.
 
 The Privacy API declares and handles:
 
